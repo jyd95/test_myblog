@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tenco.blog.repository.interfaces.PostRepository">
+
+	<select id="countPost" resultType="int">
+		select count(*) from post
+	</select>
+	
+	<select id ="findAllPost" resultType="com.tenco.blog.repository.model.Post">
+		select * from post
+		order by id desc
+		limit #{limit} offset #{offset}
+	</select>
+	
+	<select id="findById" resultType="com.tenco.blog.repository.model.Post">		
+		select * from post
+		where id = #{id}
+	</select>
+	
+	<select id="findPasswordById" resultType="String">
+		select password from post where id = #{id}
+	</select>
+
+	<insert id="insert">
+		insert into post(title, content, writer, password)
+			values(#{title}, #{content}, #{writer}, #{password})
+	</insert>
+	
+	<update id="updatePost">
+		update post
+		set title = #{title},
+			content = #{content}
+			where id = #{id}			
+	</update>
+	
+	<delete id="deleteById">
+		delete from post where id = #{id}
+	</delete>
+</mapper>
